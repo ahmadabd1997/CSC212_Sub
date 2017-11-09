@@ -1,11 +1,11 @@
 // (maybe not complete) not sure if the list need more methods or need edit!
 
-public class List <T> {
+public class List<T> {
 	
 	private Node<T> head;
 	private Node<T> current;
 	
-	public void add(T e){ //--add element after the current
+	public void insert(T e){ //--add element after the current
 		Node<T> tmp = new Node<T>(e);
 		if(current != null){ //if not empty
 			tmp.next = current.next;
@@ -33,11 +33,11 @@ public class List <T> {
 		current.data = e;
 	}
 	
-	public void findfirst(){ //--move the current to the start		
+	public void findFirst(){ //--move the current to the start		
 		current = head;
 	}
 	
-	public void findnext(){ //--move the current to the start		
+	public void findNext(){ //--move the current to the start		
 		current = current.next;
 	}
 	
@@ -47,5 +47,10 @@ public class List <T> {
 	
 	public boolean empty(){ //--return if the list is empty or not
 		return head == null;
+	}
+	
+	public T retrieve(){ //--return the data in the current
+		
+		return current.data;
 	}
 }
