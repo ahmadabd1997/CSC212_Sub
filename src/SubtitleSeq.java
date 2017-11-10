@@ -1,15 +1,68 @@
 // This interface represents a subtitle sequence.
-public interface SubtitleSeq {
-
+public class SubtitleSeq {
+	
+	LinkedList<Subtitle> list = new LinkedList<Subtitle>();
+	
 	// Add a subtitle.
-	void addSubtitle(Subtitle st);
+	void addSubtitle(Subtitle st){
+		list.insert(st);
+	}
 
 	// Return all subtitles in their chronological order.
-	List<Subtitle> getSubtitles();
+	List<Subtitle> getSubtitles(){
+		return list;
+	}
 
 	// Return the subtitle displayed at the specified time, null if no 
 	// subtitle is displayed.
-	Subtitle getSubtitle(Time time);
+	Subtitle getSubtitle(Time time){
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				Time start = list.retrieve().getStartTime();
+				Time end = list.retrieve().getEndTime();
+				if( // check if the given time less than current_end_time and greater than current_start_time
+						(
+						start.getHH() >= time.getHH() &&
+						start.getMM() >= time.getMM() &&
+						start.getSS() >= time.getSS() &&
+						start.getMS() >= time.getMS()
+						)
+						&&
+						(	
+						end.getHH() <= time.getHH() &&
+						end.getMM() <= time.getMM() &&
+						end.getSS() <= time.getSS() &&
+						end.getMS() <= time.getMS()
+						)
+					){ // inside the if
+					return list.retrieve();
+				}
+				list.findNext();
+			} // check for the last element in the list ^.^
+			Time start = list.retrieve().getStartTime();
+			Time end = list.retrieve().getEndTime();
+			if( // check if the given time less than current_end_time and greater than current_start_time
+					(
+					start.getHH() >= time.getHH() &&
+					start.getMM() >= time.getMM() &&
+					start.getSS() >= time.getSS() &&
+					start.getMS() >= time.getMS()
+					)
+					&&
+					(	
+					end.getHH() <= time.getHH() &&
+					end.getMM() <= time.getMM() &&
+					end.getSS() <= time.getSS() &&
+					end.getMS() <= time.getMS()
+					)
+				){ // inside the if
+				return list.retrieve();
+			}
+			
+		}
+		return null;
+	}
 
 	// Return, in chronological order, all subtitles displayed between the
 	// specified start and end times. The first element of this list is the
