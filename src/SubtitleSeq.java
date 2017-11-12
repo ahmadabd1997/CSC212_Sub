@@ -1,11 +1,22 @@
 // This interface represents a subtitle sequence.
 public class SubtitleSeq {
 	
-	LinkedList<Subtitle> list = new LinkedList<Subtitle>();
+	private LinkedList<Subtitle> list = new LinkedList<Subtitle>();
 	
 	// Add a subtitle.
 	void addSubtitle(Subtitle st){
-		list.insert(st);
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				if(list.retrieve().getStartTime().compare(st.getStartTime()) < 0)
+					list.findNext();
+				else{
+					list.insert(st);
+					break;
+				}
+			}
+		}
+		else list.insert(st);
 	}
 
 	// Return all subtitles in their chronological order.
@@ -19,47 +30,21 @@ public class SubtitleSeq {
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				Time start = list.retrieve().getStartTime();
-				Time end = list.retrieve().getEndTime();
-				if( // check if the given time less than current_end_time and greater than current_start_time
-						(
-						start.getHH() >= time.getHH() &&
-						start.getMM() >= time.getMM() &&
-						start.getSS() >= time.getSS() &&
-						start.getMS() >= time.getMS()
-						)
-						&&
-						(	
-						end.getHH() <= time.getHH() &&
-						end.getMM() <= time.getMM() &&
-						end.getSS() <= time.getSS() &&
-						end.getMS() <= time.getMS()
-						)
-					){ // inside the if
+				Time startTime = list.retrieve().getStartTime();
+				Time endTime = list.retrieve().getEndTime();
+				// check if the given time less than current_end_time and greater than current_start_time
+				if(startTime.compare(time) <= 0 && endTime.compare(time) >= 0){
 					return list.retrieve();
 				}
 				list.findNext();
-			} // check for the last element in the list ^.^
-			Time start = list.retrieve().getStartTime();
-			Time end = list.retrieve().getEndTime();
-			if( // check if the given time less than current_end_time and greater than current_start_time
-					(
-					start.getHH() >= time.getHH() &&
-					start.getMM() >= time.getMM() &&
-					start.getSS() >= time.getSS() &&
-					start.getMS() >= time.getMS()
-					)
-					&&
-					(	
-					end.getHH() <= time.getHH() &&
-					end.getMM() <= time.getMM() &&
-					end.getSS() <= time.getSS() &&
-					end.getMS() <= time.getMS()
-					)
-				){ // inside the if
+			} 
+			// check for the last element in the list ^.^
+			Time startTime = list.retrieve().getStartTime();
+			Time endTime = list.retrieve().getEndTime();
+			// check if the given time less than current_end_time and greater than current_start_time
+			if(startTime.compare(time) <= 0 && endTime.compare(time) >= 0){
 				return list.retrieve();
 			}
-			
 		}
 		return null;
 	}
@@ -70,7 +55,18 @@ public class SubtitleSeq {
 	// Immediately after startTime. The last element of this list is the
 	// subtitle of which the display interval contains or otherwise comes
 	// immediately before endTime.
-	List<Subtitle> getSubtitles(Time startTime, Time endTime);
+	List<Subtitle> getSubtitles(Time startTime, Time endTime){
+		LinkedList<Subtitle> tmplist = new LinkedList<Subtitle>();
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+			
+			}
+			
+		}
+		//return(List<Subtitle>) tmplist;
+		return null;
+	}
 
 	// Return, in chronological order, all subtitles containing str as a
 	// sub-string in their text.
