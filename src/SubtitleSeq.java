@@ -70,19 +70,29 @@ public class SubtitleSeq {
 
 	// Return, in chronological order, all subtitles containing str as a
 	// sub-string in their text.
-	List<Subtitle> getSubtitles(String str);
+	List<Subtitle> getSubtitles(String str)
+	{
+		LinkedList<Subtitle> l = new LinkedList<Subtitle>();
+		return l;
+	}
 
 	// Remove all subtitles containing str as a sub-string in their text.
-	void remove(String str);
+	void remove(String str) {
+	
+	}
 
 	// Replace str1 with str2 in all subtitles.
-	void replace(String str1, String str2);
+	void replace(String str1, String str2) {
+		
+	}
 
 	// Shift the subtitles by offseting their start/end times with the specified
 	// offset (in milliseconds). The value offset can be positive or negative.
 	// Negative time is not allowed and must be replaced with 0. If the end time
 	// becomes 0, the subtitle must be removed.
-	void shift(int offset);
+	void shift(int offset) {
+		
+	}
 
 	// Cut all subtitles between the specified start and end times. The first
 	// subtitle to be removed is the one for which the display interval contains
@@ -90,6 +100,8 @@ public class SubtitleSeq {
 	// removed is the one for which the display interval contains or otherwise
 	// comes immediately before endTime. The start and end times of all
 	// subtitles must be adjusted to reflect the new time.
-	void cut(Time startTime, Time endTime);
+	void cut(Time startTime, Time endTime) {
+		
+	}
 }
 
