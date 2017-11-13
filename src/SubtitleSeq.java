@@ -5,20 +5,24 @@ public class SubtitleSeq {
 	
 	// Add a subtitle.
 	void addSubtitle(Subtitle st){
-		if(!list.empty()){
+	/*	if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				if(list.retrieve().getStartTime().compare(st.getStartTime()) < 0)
-					list.findNext();
+				if(list.retrieve().getStartTime().compare(st.getStartTime()) < 0) {
+					list.findNext();System.out.println("1");}
 				else{
 					list.insert(st);
+					
 					break;
 				}
 			}
+			if(list.retrieve().getStartTime().compare(st.getStartTime()) >= 0)
+				list.insert(st);
 		}
-		else list.insert(st);
-	}
-
+		else list.insert(st);*/
+	
+		list.insert(st);
+}
 	// Return all subtitles in their chronological order.
 	List<Subtitle> getSubtitles(){
 		return list;

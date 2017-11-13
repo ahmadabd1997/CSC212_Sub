@@ -11,7 +11,8 @@ public class SubtitleSeqFactory {
 
 	// Load a subtitle sequence from an SRT file. If the file does not exist or
 	// is corrupted (incorrect format), null is returned.
-	public static SubtitleSeq loadSubtitleSeq(String fileName) throws IOException {
+	public static SubtitleSeq loadSubtitleSeq(String fileName) {
+		try {
 		BufferedReader in = new BufferedReader(new FileReader(fileName));
 		SubtitleSeq ss = new SubtitleSeq();
 		String line;
@@ -67,7 +68,17 @@ public class SubtitleSeqFactory {
 			
 			counter = counter %4;
 		}
+		//Extra step for last element.
+		Subtitle s = new Subtitle();
+		s.setStartTime(ts);
+		s.setEndTime(te);
+		s.setText(text);
+		ss.addSubtitle(s); 		// add the subtitle to subtitles group.
 		in.close();
 		return ss;
+		} catch(IOException e)
+		{
+			return null;
+		}
 	}
 }

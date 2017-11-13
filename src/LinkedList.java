@@ -8,6 +8,7 @@ public class LinkedList<T> implements List<T> {
 		if(current != null){ //if not empty
 			tmp.next = current.next;
 			current.next = tmp;
+			current=tmp;
 		}
 		else head = current = tmp;//if empty
 	}
