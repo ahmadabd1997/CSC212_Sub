@@ -3,25 +3,40 @@ public class SubtitleSeq {
 	
 	private LinkedList<Subtitle> list = new LinkedList<Subtitle>();
 	
-	// Add a subtitle.
+	// Add a subtitle. 
+	// ^.^ Done ^.^ it add the new Subtitle in the right place in the list so no need for sort method ^.^
 	void addSubtitle(Subtitle st){
-	/*	if(!list.empty()){
+		boolean added = false;
+		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				if(list.retrieve().getStartTime().compare(st.getStartTime()) < 0) {
-					list.findNext();System.out.println("1");}
+				if(list.retrieve().compare(st) < 0) {
+					list.findNext();
+					}
 				else{
-					list.insert(st);
-					
+					System.out.println("add in the while");
+					list.insertbefore(st);
+					added = true;
 					break;
 				}
 			}
-			if(list.retrieve().getStartTime().compare(st.getStartTime()) >= 0)
-				list.insert(st);
+			if(!added){
+				if(list.retrieve().compare(st) < 0) {
+					System.out.println("added after last");
+					added = true;
+					list.insert(st);
+				}
+				else{
+					System.out.println("added before last");
+					added = true;
+					list.insertbefore(st);
+				}
+			}
 		}
-		else list.insert(st);*/
-	
-		list.insert(st);
+		else {
+			System.out.println("Empty add");
+			list.insert(st);
+		}
 }
 	// Return all subtitles in their chronological order.
 	List<Subtitle> getSubtitles(){
@@ -59,17 +74,24 @@ public class SubtitleSeq {
 	// Immediately after startTime. The last element of this list is the
 	// subtitle of which the display interval contains or otherwise comes
 	// immediately before endTime.
-	List<Subtitle> getSubtitles(Time startTime, Time endTime){
+	List<Subtitle> getSubtitles(Time startTime, Time endTime){ // need check !!
 		LinkedList<Subtitle> tmplist = new LinkedList<Subtitle>();
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-			
+				if(list.retrieve().getEndTime().compare(startTime) >= 0){ // inside the interval
+					while(list.retrieve().getStartTime().compare(endTime) <= 0){
+						tmplist.insert(list.retrieve());
+						list.findNext();
+					}
+					break;
+				}
+				else{ // not inside the interval
+					list.findNext();
+				}
 			}
-			
 		}
-		//return(List<Subtitle>) tmplist;
-		return null;
+		return tmplist;
 	}
 
 	// Return, in chronological order, all subtitles containing str as a

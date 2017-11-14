@@ -13,6 +13,22 @@ public class LinkedList<T> implements List<T> {
 		else head = current = tmp;//if empty
 	}
 	
+	public void insertbefore(T e){
+		Node<T> tmp = new Node<T>(e);//tmp is the new node
+		Node<T> tmp2 = head;//tmp2 is the pointer that move along the list
+		
+		if(current == head){
+			tmp.next = head;
+			head = current = tmp;
+		}
+		else{
+			while(tmp2.next != current)
+				tmp2 = tmp2.next;
+			tmp.next = current;
+			tmp2.next = tmp;
+		}
+	}
+	
 	public void remove(){ //--remove the element at current. move the current to the next element or the start if removing the last element
 		if(current == head){
 			head = current = head.next;//(removed the 1st element)

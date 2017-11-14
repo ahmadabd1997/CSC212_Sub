@@ -24,6 +24,8 @@ public class Subtitle {
 		Text = text;
 	}
 	
-	
+	public int compare(Subtitle s){//compare the two subtitles by StartTime 
+		return this.StartTime.compare(s.StartTime);
+	}
 	
 }
