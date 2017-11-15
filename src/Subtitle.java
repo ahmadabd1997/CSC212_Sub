@@ -29,5 +29,13 @@ public class Subtitle {
 	}
 	
 	//method shift
+	public void shift(int offset){
+		if (StartTime.getTMS() + offset >=0)
+			StartTime.setTMS(StartTime.getTMS() + offset);
+		else
+			StartTime.setTMS(0);
+		EndTime.setTMS(EndTime.getTMS() + offset);
+	}
 	//search for sub-string
+	
 }

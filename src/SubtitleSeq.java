@@ -82,7 +82,10 @@ public class SubtitleSeq {
 				if(list.retrieve().getEndTime().compare(startTime) >= 0){ // inside the interval
 					while(list.retrieve().getStartTime().compare(endTime) <= 0){
 						tmplist.insert(list.retrieve());
-						list.findNext();
+						if(!list.last())
+							list.findNext();
+						else
+							break;
 					}
 					break;
 				}
@@ -117,7 +120,17 @@ public class SubtitleSeq {
 	// Negative time is not allowed and must be replaced with 0. If the end time
 	// becomes 0, the subtitle must be removed.
 	void shift(int offset) {
-		
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				list.retrieve().shift(offset); // call the shift method in subtitle class
+				if(list.retrieve().getEndTime().getTMS() <= 0) // check if we need to remove the subtitle
+					list.remove();
+			}
+			list.retrieve().shift(offset); // call the shift method in subtitle class
+			if(list.retrieve().getEndTime().getTMS() <= 0) // check if we need to remove the subtitle
+				list.remove();
+		}
 	}
 
 	// Cut all subtitles between the specified start and end times. The first
@@ -127,7 +140,36 @@ public class SubtitleSeq {
 	// comes immediately before endTime. The start and end times of all
 	// subtitles must be adjusted to reflect the new time.
 	void cut(Time startTime, Time endTime) {
+		int TMS = endTime.getTMS() - startTime.getTMS();
 		
+		if(!list.empty()){
+			boolean need_shift = true;
+			list.findFirst();
+			while(!list.last()){
+				if(list.retrieve().getEndTime().compare(startTime) >= 0){ // inside the interval
+					while(list.retrieve().getStartTime().compare(endTime) <= 0){
+						if(list.last()){// if the endTime is bigger than the last subtitle
+							list.remove();
+							need_shift = false;
+							break;
+						}
+						else
+							list.remove();
+					}
+					break;
+				}
+				else{ // not inside the interval
+					list.findNext();
+				}
+				if(need_shift){
+					while(!list.last()){
+						list.retrieve().shift(-TMS);
+						list.findNext();
+					}
+					list.retrieve().shift(-TMS);
+				}
+			}
+		}
 	}
 }
 
