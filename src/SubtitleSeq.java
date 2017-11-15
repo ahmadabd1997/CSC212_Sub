@@ -155,6 +155,7 @@ public class SubtitleSeq {
 				list.retrieve().shift(offset); // call the shift method in subtitle class
 				if(list.retrieve().getEndTime().getTMS() <= 0) // check if we need to remove the subtitle
 					list.remove();
+				list.findNext();
 			}
 			list.retrieve().shift(offset); // call the shift method in subtitle class
 			if(list.retrieve().getEndTime().getTMS() <= 0) // check if we need to remove the subtitle
@@ -175,8 +176,10 @@ public class SubtitleSeq {
 			boolean need_shift = true;
 			list.findFirst();
 			while(!list.last()){
-				if(list.retrieve().getEndTime().compare(startTime) >= 0){ // inside the interval
+				if(list.retrieve().getEndTime().compare(startTime) >= 0){// inside the interval
+					System.out.println("in the cut method : inside the interval at " + list.retrieve().getText());
 					while(list.retrieve().getStartTime().compare(endTime) <= 0){
+						
 						if(list.last()){// if the endTime is bigger than the last subtitle
 							list.remove();
 							need_shift = false;
@@ -190,14 +193,15 @@ public class SubtitleSeq {
 				else{ // not inside the interval
 					list.findNext();
 				}
-				if(need_shift){
-					while(!list.last()){
-						list.retrieve().shift(-TMS);
-						list.findNext();
-					}
-					list.retrieve().shift(-TMS);
-				}
 			}
+			if(need_shift){
+				while(!list.last()){
+					list.retrieve().shift(-TMS);
+					list.findNext();
+				}
+				list.retrieve().shift(-TMS);
+			}
+			
 		}
 	}
 }
