@@ -102,17 +102,46 @@ public class SubtitleSeq {
 	List<Subtitle> getSubtitles(String str)
 	{
 		LinkedList<Subtitle> l = new LinkedList<Subtitle>();
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				if(list.retrieve().getText().contains(str))
+					l.insert(list.retrieve());
+				list.findNext();
+			}
+			if(list.retrieve().getText().contains(str))
+				l.insert(list.retrieve());
+		}
 		return l;
 	}
 
 	// Remove all subtitles containing str as a sub-string in their text.
 	void remove(String str) {
-	
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				if(list.retrieve().getText().contains(str))
+					list.remove();
+				else		//needed else because remove method already moving to next
+					list.findNext();
+			}
+			if(list.retrieve().getText().contains(str))
+				list.remove();
+		}
 	}
 
 	// Replace str1 with str2 in all subtitles.
 	void replace(String str1, String str2) {
-		
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				if(list.retrieve().getText().equals(str1))
+					list.retrieve().setText(str2);
+				list.findNext();
+			}
+			if(list.retrieve().getText().equals(str1))
+				list.retrieve().setText(str2);
+		}
 	}
 
 	// Shift the subtitles by offseting their start/end times with the specified
