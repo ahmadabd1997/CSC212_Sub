@@ -28,4 +28,6 @@ public class Subtitle {
 		return this.StartTime.compare(s.StartTime);
 	}
 	
+	//method shift
+	//search for sub-string
 }
