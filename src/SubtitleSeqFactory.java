@@ -17,6 +17,7 @@ public class SubtitleSeqFactory {
 		SubtitleSeq ss = new SubtitleSeq();
 		String line;
 		int counter =0; 		//using counter to count the lines we read in a single sequence
+		int seqNumber=0;
 		int subNumber=0;	 	//test usage
 		Time ts = new Time(); 	//starting time
 		Time te = new Time(); 	//ending time
@@ -25,7 +26,10 @@ public class SubtitleSeqFactory {
 		{
 			if(counter ==0)
 			{
+				seqNumber++;
 				subNumber=Integer.parseInt(line);  // saving the subtitle number for testing
+				if(seqNumber!=subNumber)
+					return null;
 				counter++;
 			}
 			else if(counter ==1)
