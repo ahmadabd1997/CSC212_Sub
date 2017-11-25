@@ -6,6 +6,22 @@ public class Time {
 	private int SS;
 	private int MS;
 	
+	public Time(){
+		HH=MM=SS=MS=0;
+	}
+	public Time(int h,int m,int s, int ms){
+		this.HH=h;
+		this.MM=m;
+		this.SS=s;
+		this.MS=ms;
+	}
+	public Time(String hh, String mm, String ss, String ms) {
+		this.HH = Integer.parseInt(hh);
+		this.MM = Integer.parseInt(mm);
+		this.SS = Integer.parseInt(ss);
+		this.MS = Integer.parseInt(ms);
+	}
+
 	public int getHH() {
 		return HH;
 	}
@@ -32,39 +48,6 @@ public class Time {
 	}
 	
 	public int compare(Time t){ // return 0 when equal, -1 when smaller than parameter, 1 when bigger than parameter.
-		/*if(HH > t.HH){
-			return 1;
-		}
-		else if(HH < t.HH){
-			return -1;
-		}
-		else{
-			if(MM > t.MM){
-				return 1;
-			}
-			else if(MM < t.MM){
-				return -1;
-			}
-			else{
-				if(SS > t.SS){
-					return 1;
-				}
-				else if(SS < t.SS){
-					return -1;
-				}
-				else{
-					if(MS > t.MS){
-						return 1;
-					}
-					else if(MS < t.MS){
-						return -1;
-					}
-					else{
-						return 0;
-					}
-				}
-			}
-		}*/
 		int OT = this.getTMS();
 		int PT = t.getTMS(); 
 		if(OT > PT){
@@ -79,7 +62,7 @@ public class Time {
 	
 	//@utttu please check if this is correct !!
 	public int getTMS(){// get the total of MS in the time
-		return (MS + (SS*1000) + (MM*1000*60) + (HH*1000*60*60));
+		return (getMS() + (getSS()*1000) + (getMM()*1000*60) + (getHH()*1000*60*60));
 	}
 	
 	//@utttu please check if this is correct !!
@@ -91,5 +74,11 @@ public class Time {
 		SS = TMS/1000;
 		TMS -= SS*1000;
 		MS = TMS;
+	}
+	
+	public String toString()
+	{
+		String s = "Hourse(HH)= "+getHH()+", Minutes(MM)= "+getMM()+", Seconds(SS)= "+getSS()+", MilleSeconds(MS)= "+getMS();
+		return s;
 	}
 }

@@ -5,6 +5,16 @@ public class Subtitle {
 	private Time EndTime;
 	private String Text;
 	
+	public Subtitle(){
+		StartTime = new Time();
+		EndTime = new Time();
+		Text="";
+	}
+	public Subtitle(Time st,Time et,String t){
+		StartTime = st;
+		EndTime = et;
+		Text = t;
+	}
 	public Time getStartTime() {
 		return StartTime;
 	}
@@ -35,6 +45,12 @@ public class Subtitle {
 		else
 			StartTime.setTMS(0);
 		EndTime.setTMS(EndTime.getTMS() + offset);
+	}
+	
+	public String toString()
+	{
+		String s = "StartTime: "+StartTime+", EndTime: "+EndTime+", Text: "+Text;
+		return s;
 	}
 	//search for sub-string
 	

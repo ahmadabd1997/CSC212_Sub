@@ -76,7 +76,7 @@ public class SubtitleSeqFactory {
 		ss.addSubtitle(s); 		// add the subtitle to subtitles group.
 		in.close();
 		return ss;
-		} catch(IOException e)
+		} catch(Exception e)
 		{
 			return null;
 		}

@@ -14,7 +14,6 @@ public class SubtitleSeq {
 					list.findNext();
 					}
 				else{
-					System.out.println("add in the while");
 					list.insertbefore(st);
 					added = true;
 					break;
@@ -22,19 +21,16 @@ public class SubtitleSeq {
 			}
 			if(!added){
 				if(list.retrieve().compare(st) < 0) {
-					System.out.println("added after last");
 					added = true;
 					list.insert(st);
 				}
 				else{
-					System.out.println("added before last");
 					added = true;
 					list.insertbefore(st);
 				}
 			}
 		}
 		else {
-			System.out.println("Empty add");
 			list.insert(st);
 		}
 }
@@ -81,6 +77,7 @@ public class SubtitleSeq {
 			while(!list.last()){
 				if(list.retrieve().getEndTime().compare(startTime) >= 0){ // inside the interval
 					while(list.retrieve().getStartTime().compare(endTime) <= 0){
+						
 						tmplist.insert(list.retrieve());
 						if(!list.last())
 							list.findNext();
@@ -135,12 +132,12 @@ public class SubtitleSeq {
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				if(list.retrieve().getText().equals(str1))
-					list.retrieve().setText(str2);
+				if(list.retrieve().getText().contains(str1))
+					list.retrieve().setText(list.retrieve().getText().replaceAll(str1,str2));
 				list.findNext();
 			}
-			if(list.retrieve().getText().equals(str1))
-				list.retrieve().setText(str2);
+			if(list.retrieve().getText().contains(str1))
+				list.retrieve().setText(list.retrieve().getText().replaceAll(str1,str2));
 		}
 	}
 
@@ -177,7 +174,6 @@ public class SubtitleSeq {
 			list.findFirst();
 			while(!list.last()){
 				if(list.retrieve().getEndTime().compare(startTime) >= 0){// inside the interval
-					System.out.println("in the cut method : inside the interval at " + list.retrieve().getText());
 					while(list.retrieve().getStartTime().compare(endTime) <= 0){
 						
 						if(list.last()){// if the endTime is bigger than the last subtitle
@@ -203,6 +199,18 @@ public class SubtitleSeq {
 			}
 			
 		}
+	}
+	public String toString(){
+		String s="The Sequence: \n";
+		if(!list.empty()){
+			list.findFirst();
+			while(!list.last()){
+				s+=list.retrieve().toString();
+				list.findNext();
+			}
+			s+=list.retrieve().toString();
+		}
+		return s;
 	}
 }
 
