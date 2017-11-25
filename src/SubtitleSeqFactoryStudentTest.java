@@ -1,7 +1,7 @@
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
-//import org.junit.Before;
-//import org.junit.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 public class SubtitleSeqFactoryStudentTest {
 
@@ -195,12 +195,6 @@ public class SubtitleSeqFactoryStudentTest {
 
 	}
 
-	private void assertNotNull(String string, SubtitleSeq seq) {
-		if(seq == null)
-			System.out.println(string);
-		
-	}
-
 	// #2 wrong sequence number
 	//Test
 	public void testLoad2() {
@@ -225,12 +219,6 @@ public class SubtitleSeqFactoryStudentTest {
 			e.printStackTrace();
 		}
 	}
-
-	private void assertNull(String string, SubtitleSeq seq) {
-		if(seq == null)
-			System.out.println(string);		
-	}
-
 	// #4 End time precede start time
 	//Test
 	public void testLoad4() {
@@ -264,7 +252,6 @@ public class SubtitleSeqFactoryStudentTest {
 			SubtitleSeq seq = SubtitleSeqFactory.getSubtitleSeq();
 			seq.addSubtitle(new Subtitle(new Time(0, 0, 1, 500), new Time(0, 0, 3, 700), "Hello Pooh!"));
 			seq.addSubtitle(new Subtitle(new Time(0, 0, 2, 500), new Time(0, 0, 5, 700), "Hello Pooh!"));
-			System.out.println("\n"+seq.toString());
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time(0, 0, 1, 500), new Time(0, 0, 3, 700), "Hello Pooh!"));
 
@@ -307,7 +294,7 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "01", "35", "179"), new Time("00", "01", "38", "974"), "But his favourite things\nare his stuffed animals."));
 			seq.addSubtitle(new Subtitle(new Time("00", "01", "39", "308"), new Time("00", "01", "41", "602"), "Ah! There they are now."));
 
-			SubtitleSt expected = (SubtitleSt) new Subtitle(new Time("00", "01", "24", "585"), new Time("00", "01", "27", "713"), "Now, Christopher Robin\nhas a very active imagination,");
+			Subtitle expected =  new Subtitle(new Time("00", "01", "24", "585"), new Time("00", "01", "27", "713"), "Now, Christopher Robin\nhas a very active imagination,");
 
 			assertTrue("S1: Method getSubtitle(Time) not working correctly: "+expected.getText()+" != "+seq.getSubtitle(new Time("00", "01", "25", "500")).getText(), areEqual(expected, seq.getSubtitle(new Time("00", "01", "25", "500"))));
 
@@ -344,11 +331,6 @@ public class SubtitleSeqFactoryStudentTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void assertNull(String string, Subtitle subtitle) {
-		if(subtitle == null)
-			System.out.println(string);		
 	}
 
 	//Test
@@ -394,10 +376,8 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "02", "46", "200"), new Time("00", "02", "48", "089"), "Form your lines."));
 			seq.addSubtitle(new Subtitle(new Time("00", "02", "48", "480"), new Time("00", "02", "49", "527"), "(GUNS COCKING)"));
 			seq.addSubtitle(new Subtitle(new Time("00", "02", "55", "800"), new Time("00", "02", "57", "609"), "Maxims ready, sir!"));
-			//System.out.println("\n" + seq.toString() + "\n=========================");
 			seq.shift(-150000);
 			
-			//System.out.println(seq.toString());
 			
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time("00", "00", "00", "000"), new Time("00", "00", "01", "721"), "We found it."));
@@ -613,13 +593,6 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time("00", "46", "17", "027"), new Time("00", "46", "18", "570"), "He puts out the lights!"));
 			expected.insert(new Subtitle(new Time("00", "46", "18", "654"), new Time("00", "46", "22", "199"), "Yes, and we thought he took you from us."));
 			expected.insert(new Subtitle(new Time("00", "46", "22", "282"), new Time("00", "46", "25", "911"), "What gave you the idea\nI was taken by a Bigfoot? "));
-			List<Subtitle> result = seq.getSubtitles();
-			result.findFirst();
-			for(int i=0;i<9;i++)
-			{
-				result.findNext();
-			}
-			System.out.println(result.retrieve());
 			assertTrue("Method replace not working correctly", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
@@ -831,11 +804,6 @@ public class SubtitleSeqFactoryStudentTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void assertTrue(String string, boolean areEqual) {
-		if(!areEqual)
-			System.out.println(string);
 	}
 
 	//Test
