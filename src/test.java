@@ -21,6 +21,7 @@ public class test {
 		ss.testLoad1();
 		ss.testLoad2();
 		ss.testLoad3();
+		ss.testLoad4();
 		ss.testRemove1();
 		ss.testRemove2();
 		ss.testRemove3();

@@ -63,6 +63,8 @@ public class SubtitleSeqFactory {
 				}
 				// after reading 1 subtitle add its info.
 				Subtitle s = new Subtitle();
+				if(ts.compare(te)!=-1)
+					return null;
 				s.setStartTime(ts);
 				s.setEndTime(te);
 				s.setText(text);
