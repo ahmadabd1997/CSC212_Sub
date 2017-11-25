@@ -35,15 +35,20 @@ public class Subtitle {
 	}
 	
 	public int compare(Subtitle s){//compare the two subtitles by StartTime 
-		return this.StartTime.compare(s.StartTime);
+		if(this.StartTime.compare(s.EndTime) > 0){
+			return 1; // bigger
+		}
+		else if(s.StartTime.compare(EndTime) < 0){
+			return 0;
+		}
+		else
+			return -1;
 	}
 	
 	//method shift
 	public void shift(int offset){
-		if (StartTime.getTMS() + offset >=0)
-			StartTime.setTMS(StartTime.getTMS() + offset);
-		else
-			StartTime.setTMS(0);
+		//System.out.println("shifting by " + offset + ", st = " + StartTime.getTMS() + ", et = " + EndTime.getTMS() + ", For :" + Text);
+		StartTime.setTMS(StartTime.getTMS() + offset);
 		EndTime.setTMS(EndTime.getTMS() + offset);
 	}
 	

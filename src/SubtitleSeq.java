@@ -13,6 +13,9 @@ public class SubtitleSeq {
 				if(list.retrieve().compare(st) < 0) {
 					list.findNext();
 					}
+				else if(list.retrieve().compare(st) == 0){
+					return;
+				}
 				else{
 					list.insertbefore(st);
 					added = true;
@@ -23,6 +26,9 @@ public class SubtitleSeq {
 				if(list.retrieve().compare(st) < 0) {
 					added = true;
 					list.insert(st);
+				}
+				else if(list.retrieve().compare(st) == 0){
+					return;
 				}
 				else{
 					added = true;
@@ -149,10 +155,13 @@ public class SubtitleSeq {
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				list.retrieve().shift(offset); // call the shift method in subtitle class
+				list.retrieve().shift(offset);// call the shift method in subtitle class
+				if(list.retrieve().getStartTime().getTMS()< 0)
+					list.retrieve().setStartTime(new Time());
 				if(list.retrieve().getEndTime().getTMS() <= 0) // check if we need to remove the subtitle
 					list.remove();
-				list.findNext();
+				else
+					list.findNext();
 			}
 			list.retrieve().shift(offset); // call the shift method in subtitle class
 			if(list.retrieve().getEndTime().getTMS() <= 0) // check if we need to remove the subtitle
@@ -173,6 +182,7 @@ public class SubtitleSeq {
 			boolean need_shift = true;
 			list.findFirst();
 			while(!list.last()){
+				//System.out.println("end.compare(start) = " + list.retrieve().getEndTime().compare(startTime));
 				if(list.retrieve().getEndTime().compare(startTime) >= 0){// inside the interval
 					while(list.retrieve().getStartTime().compare(endTime) <= 0){
 						
@@ -192,10 +202,10 @@ public class SubtitleSeq {
 			}
 			if(need_shift){
 				while(!list.last()){
-					list.retrieve().shift(-TMS);
+					list.retrieve().shift(-TMS-1);
 					list.findNext();
 				}
-				list.retrieve().shift(-TMS);
+				list.retrieve().shift(-TMS-1);
 			}
 			
 		}
@@ -205,10 +215,11 @@ public class SubtitleSeq {
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				s+=list.retrieve().toString();
+				s+="\n" +list.retrieve().toString();
 				list.findNext();
+				
 			}
-			s+=list.retrieve().toString();
+			s+="\n" +list.retrieve().toString();
 		}
 		return s;
 	}

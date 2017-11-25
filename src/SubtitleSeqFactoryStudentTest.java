@@ -252,7 +252,7 @@ public class SubtitleSeqFactoryStudentTest {
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time(0, 0, 1, 500), new Time(0, 0, 3, 700), "Hello Pooh!"));
 
-			assertTrue("The method addSubtitle is not correctly implemented", areEqual(expected, seq.getSubtitles()));
+			assertTrue("AS1 : The method addSubtitle is not correctly implemented", areEqual(expected, seq.getSubtitles()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -264,11 +264,11 @@ public class SubtitleSeqFactoryStudentTest {
 			SubtitleSeq seq = SubtitleSeqFactory.getSubtitleSeq();
 			seq.addSubtitle(new Subtitle(new Time(0, 0, 1, 500), new Time(0, 0, 3, 700), "Hello Pooh!"));
 			seq.addSubtitle(new Subtitle(new Time(0, 0, 2, 500), new Time(0, 0, 5, 700), "Hello Pooh!"));
-
+			System.out.println("\n"+seq.toString());
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time(0, 0, 1, 500), new Time(0, 0, 3, 700), "Hello Pooh!"));
 
-			assertTrue("The method addSubtitle is not correctly implemented. Overlapping subtitles should not be added", areEqual(expected, seq.getSubtitles()));
+			assertTrue("AS2 : The method addSubtitle is not correctly implemented. Overlapping subtitles should not be added", areEqual(expected, seq.getSubtitles()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -285,7 +285,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time(0, 0, 0, 500), new Time(0, 0, 1, 200), "Hello Tigger!"));
 			expected.insert(new Subtitle(new Time(0, 0, 1, 500), new Time(0, 0, 3, 700), "Hello Pooh!"));
 
-			assertTrue("The method addSubtitle is not correctly implemented. Subtitles must be ordered chronologically", areEqual(expected, seq.getSubtitles()));
+			assertTrue("AS3 : The method addSubtitle is not correctly implemented. Subtitles must be ordered chronologically", areEqual(expected, seq.getSubtitles()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -375,7 +375,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time("00", "02", "49", "480"), new Time("00", "02", "50", "527"), "(GUNS COCKING)"));
 			expected.insert(new Subtitle(new Time("00", "02", "56", "800"), new Time("00", "02", "58", "609"), "Maxims ready, sir!"));
 
-			assertTrue("Method shift(int) not working with positive shift", areEqual(expected, seq.getSubtitles()));
+			assertTrue("TS1 : Method shift(int) not working with positive shift", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -394,8 +394,11 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "02", "46", "200"), new Time("00", "02", "48", "089"), "Form your lines."));
 			seq.addSubtitle(new Subtitle(new Time("00", "02", "48", "480"), new Time("00", "02", "49", "527"), "(GUNS COCKING)"));
 			seq.addSubtitle(new Subtitle(new Time("00", "02", "55", "800"), new Time("00", "02", "57", "609"), "Maxims ready, sir!"));
+			//System.out.println("\n" + seq.toString() + "\n=========================");
 			seq.shift(-150000);
-
+			
+			//System.out.println(seq.toString());
+			
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time("00", "00", "00", "000"), new Time("00", "00", "01", "721"), "We found it."));
 			expected.insert(new Subtitle(new Time("00", "00", "10", "160"), new Time("00", "00", "11", "446"), "Captain Moulle?"));
@@ -403,7 +406,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time("00", "00", "18", "480"), new Time("00", "00", "19", "527"), "(GUNS COCKING)"));
 			expected.insert(new Subtitle(new Time("00", "00", "25", "800"), new Time("00", "00", "27", "609"), "Maxims ready, sir!"));
 
-			assertTrue("Method shift(int) not working with negative shift", areEqual(expected, seq.getSubtitles()));
+			assertTrue("TS2 : Method shift(int) not working with negative shift", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -481,20 +484,20 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "09", "14", "930"), new Time("00", "09", "16", "014"), "Here you are, Pooh."));
 			seq.addSubtitle(new Subtitle(new Time("00", "09", "18", "100"), new Time("00", "09", "20", "310"), "Oh, and make sure everyone can see them."));
 			seq.addSubtitle(new Subtitle(new Time("00", "09", "20", "394"), new Time("00", "09", "22", "271"), "Oh, I will, Christopher."));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "22", "354"), new Time("00", "09", "26", "024"), "♪ Come one, come two, come all\nEveryone heed the call"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "26", "149"), new Time("00", "09", "29", "570"), "♪ There's a very important thing to do"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "30", "821"), new Time("00", "09", "32", "614"), "♪ Drop what you're doing and come"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "32", "698"), new Time("00", "09", "34", "157"), "♪ Bumpity-bumpity-bum"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "34", "241"), new Time("00", "09", "37", "452"), "♪ There's a very important thing to do"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "38", "537"), new Time("00", "09", "42", "583"), "♪ It's time to gather 'round\nThe work has just begun"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "42", "666"), new Time("00", "09", "44", "835"), "♪ And when it's done\nthen you'll have found"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "44", "918"), new Time("00", "09", "46", "253"), "♪ That you have had some fun"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "46", "336"), new Time("00", "09", "48", "797"), "♪ With a monumentuous, consequentuous"));
-			seq.addSubtitle(new Subtitle(new Time("00", "09", "48", "922"), new Time("00", "09", "51", "717"), "♪ Very important thing to do ♪"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "22", "354"), new Time("00", "09", "26", "024"), "鈾� Come one, come two, come all\nEveryone heed the call"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "26", "149"), new Time("00", "09", "29", "570"), "鈾� There's a very important thing to do"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "30", "821"), new Time("00", "09", "32", "614"), "鈾� Drop what you're doing and come"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "32", "698"), new Time("00", "09", "34", "157"), "鈾� Bumpity-bumpity-bum"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "34", "241"), new Time("00", "09", "37", "452"), "鈾� There's a very important thing to do"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "38", "537"), new Time("00", "09", "42", "583"), "鈾� It's time to gather 'round\nThe work has just begun"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "42", "666"), new Time("00", "09", "44", "835"), "鈾� And when it's done\nthen you'll have found"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "44", "918"), new Time("00", "09", "46", "253"), "鈾� That you have had some fun"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "46", "336"), new Time("00", "09", "48", "797"), "鈾� With a monumentuous, consequentuous"));
+			seq.addSubtitle(new Subtitle(new Time("00", "09", "48", "922"), new Time("00", "09", "51", "717"), "鈾� Very important thing to do 鈾�"));
 			seq.addSubtitle(new Subtitle(new Time("00", "09", "53", "510"), new Time("00", "09", "54", "511"), "[grunts]"));
 			seq.addSubtitle(new Subtitle(new Time("00", "09", "57", "472"), new Time("00", "09", "58", "849"), "There we are."));
 
-			seq.remove("♪");
+			seq.remove("鈾�");
 
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time("00", "09", "14", "930"), new Time("00", "09", "16", "014"), "Here you are, Pooh."));
@@ -787,8 +790,10 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "45", "55", "255"), new Time("00", "45", "57", "549"), "[Christopher] Wait, everyone."));
 			seq.addSubtitle(new Subtitle(new Time("00", "45", "58", "175"), new Time("00", "46", "00", "135"), "It's only me."));
 			seq.addSubtitle(new Subtitle(new Time("00", "46", "00", "219"), new Time("00", "46", "02", "513"), "[all] Christopher Robin!"));
+
 			seq.cut(new Time("00", "45", "52", "000"), new Time("00", "45", "54", "999"));
 
+			
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 
 			expected.insert(new Subtitle(new Time("00", "45", "48", "081"), new Time("00", "45", "51", "293"), "But little did they know that\ncoming through the bushes was..."));
@@ -796,7 +801,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time("00", "45", "55", "175"), new Time("00", "45", "57", "135"), "It's only me."));
 			expected.insert(new Subtitle(new Time("00", "45", "57", "219"), new Time("00", "45", "59", "513"), "[all] Christopher Robin!"));
 
-			assertTrue("Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
+			assertTrue("C1 :Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -813,6 +818,7 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "45", "55", "255"), new Time("00", "45", "57", "549"), "[Christopher] Wait, everyone."));
 			seq.addSubtitle(new Subtitle(new Time("00", "45", "58", "175"), new Time("00", "46", "00", "135"), "It's only me."));
 			seq.addSubtitle(new Subtitle(new Time("00", "46", "00", "219"), new Time("00", "46", "02", "513"), "[all] Christopher Robin!"));
+			
 			seq.cut(new Time("00", "45", "51", "293"), new Time("00", "45", "51", "376"));
 
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
@@ -820,7 +826,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time("00", "45", "55", "171"), new Time("00", "45", "57", "465"), "[Christopher] Wait, everyone."));
 			expected.insert(new Subtitle(new Time("00", "45", "58", "091"), new Time("00", "46", "00", "051"), "It's only me."));
 			expected.insert(new Subtitle(new Time("00", "46", "00", "135"), new Time("00", "46", "02", "429"), "[all] Christopher Robin!"));
-			assertTrue("Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
+			assertTrue("C2 :Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -842,8 +848,9 @@ public class SubtitleSeqFactoryStudentTest {
 			seq.addSubtitle(new Subtitle(new Time("00", "45", "55", "255"), new Time("00", "45", "57", "549"), "[Christopher] Wait, everyone."));
 			seq.addSubtitle(new Subtitle(new Time("00", "45", "58", "175"), new Time("00", "46", "00", "135"), "It's only me."));
 			seq.addSubtitle(new Subtitle(new Time("00", "46", "00", "219"), new Time("00", "46", "02", "513"), "[all] Christopher Robin!"));
+			
 			seq.cut(new Time("00", "45", "57", "600"), new Time("00", "45", "58", "099"));
-
+			
 			LinkedList<Subtitle> expected = new LinkedList<Subtitle>();
 			expected.insert(new Subtitle(new Time("00", "45", "48", "081"), new Time("00", "45", "51", "293"), "But little did they know that\ncoming through the bushes was..."));
 			expected.insert(new Subtitle(new Time("00", "45", "51", "376"), new Time("00", "45", "53", "629"), "- [branches snapping]\n- [all gasp] Backson!"));
@@ -852,7 +859,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new Subtitle(new Time("00", "45", "57", "675"), new Time("00", "45", "59", "635"), "It's only me."));
 			expected.insert(new Subtitle(new Time("00", "45", "59", "719"), new Time("00", "46", "02", "013"), "[all] Christopher Robin!"));
 
-			assertTrue("Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
+			assertTrue("C3 : Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
