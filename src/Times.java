@@ -47,6 +47,7 @@ public class Times implements Time{
 		MS = ms;
 	}
 	
+
 	public String toString()
 	{
 		String s = "Hourse(HH)= "+getHH()+", Minutes(MM)= "+getMM()+", Seconds(SS)= "+getSS()+", MilleSeconds(MS)= "+getMS();

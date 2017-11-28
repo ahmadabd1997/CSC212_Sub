@@ -10,10 +10,12 @@ public class SubtitleSeqs implements SubtitleSeq{
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
+
 				if(compare((list.retrieve()),st) < 0) {
 					list.findNext();
 					}
 				else if(compare((list.retrieve()),st) == 0){
+
 					return;
 				}
 				else{
@@ -198,6 +200,7 @@ public class SubtitleSeqs implements SubtitleSeq{
 				if(getTMS((list.retrieve().getStartTime()))< 0)
 					list.retrieve().setStartTime(new Times());
 				if(getTMS((list.retrieve().getEndTime())) <= 0) // check if we need to remove the subtitle
+
 					list.remove();
 				else
 					list.findNext();
@@ -223,7 +226,9 @@ public class SubtitleSeqs implements SubtitleSeq{
 	// comes immediately before endTime. The start and end times of all
 	// subtitles must be adjusted to reflect the new time.
 	public void cut(Time startTime, Time endTime) {
+
 		int TMS = getTMS((endTime)) - getTMS((startTime));
+
 		
 		if(!list.empty()){
 			boolean need_shift = true;
@@ -232,6 +237,7 @@ public class SubtitleSeqs implements SubtitleSeq{
 				//System.out.println("end.compare(start) = " + list.retrieve().getEndTime().compare(startTime));
 				if(compare((list.retrieve().getEndTime()),startTime) >= 0){// inside the interval
 					while(compare((list.retrieve().getStartTime()),endTime) <= 0){
+
 						
 						if(list.last()){// if the endTime is bigger than the last subtitle
 							list.remove();
@@ -253,10 +259,14 @@ public class SubtitleSeqs implements SubtitleSeq{
 					list.findNext();
 				}
 				shift((list.retrieve()),-TMS-1);
+
 			}
 			
 		}
 	}
+	
+	
+	
 	public String toString(){
 		String s="The Sequence: \n";
 		if(!list.empty()){
