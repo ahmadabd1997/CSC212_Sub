@@ -19,8 +19,8 @@ public class SubtitleSeqFactory {
 		int counter =0; 		//using counter to count the lines we read in a single sequence
 		int seqNumber=0;
 		int subNumber=0;	 	//test usage
-		Times ts = new Times(); 	//starting time
-		Times te = new Times(); 	//ending time
+		Time ts = new Times(); 	//starting time
+		Time te = new Times(); 	//ending time
 		String text="";		 	//add subtitle text to it
 		while((line = in.readLine()) != null)
 		{
@@ -63,7 +63,7 @@ public class SubtitleSeqFactory {
 				}
 				// after reading 1 subtitle add its info.
 				Subtitles s = new Subtitles();
-				if(ts.compare(te)!=-1)
+				if(ss.compare(ts,te)!=-1)
 					return null;
 				s.setStartTime(ts);
 				s.setEndTime(te);

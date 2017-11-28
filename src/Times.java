@@ -47,7 +47,7 @@ public class Times implements Time{
 		MS = ms;
 	}
 	
-	public int compare(Times t){ // return 0 when equal, -1 when smaller than parameter, 1 when bigger than parameter.
+	/*public int compare(Times t){ // return 0 when equal, -1 when smaller than parameter, 1 when bigger than parameter.
 		int OT = this.getTMS();
 		int PT = t.getTMS(); 
 		if(OT > PT){
@@ -72,7 +72,7 @@ public class Times implements Time{
 		SS = TMS/1000;
 		TMS -= SS*1000;
 		MS = TMS;
-	}
+	}*/
 	
 	public String toString()
 	{

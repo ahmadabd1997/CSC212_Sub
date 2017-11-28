@@ -35,10 +35,10 @@ public class Subtitles implements Subtitle{
 	}
 	
 	public int compare(Subtitles s){//compare the two subtitles by StartTime 
-		if((this.StartTime).compare(s.EndTime) > 0){
+		if(compare(this.StartTime,s.EndTime) > 0){
 			return 1; // bigger
 		}
-		else if((s.StartTime).compare(EndTime) < 0){
+		else if(compare(s.StartTime,this.EndTime) < 0){
 			return 0;
 		}
 		else
@@ -48,9 +48,37 @@ public class Subtitles implements Subtitle{
 	//method shift
 	public void shift(int offset){
 		//System.out.println("shifting by " + offset + ", st = " + StartTime.getTMS() + ", et = " + EndTime.getTMS() + ", For :" + Text);
-		(StartTime).setTMS((StartTime).getTMS() + offset);
-		(EndTime).setTMS((EndTime).getTMS() + offset);
+		setTMS(this.StartTime,getTMS(this.StartTime) + offset);
+		setTMS(this.EndTime,getTMS(this.EndTime) + offset);
 	}
+	
+	public int compare(Time h,Time t){ // return 0 when equal, -1 when smaller than parameter, 1 when bigger than parameter.
+		int OT = getTMS(h);
+		int PT = getTMS(t); 
+		if(OT > PT){
+			return 1;
+		}
+		else if(OT < PT){
+			return -1;
+		}
+		else
+			return 0;
+	}
+	
+	public int getTMS(Time h){// get the total of MS in the time
+		return (h.getMS() + (h.getSS()*1000) + (h.getMM()*1000*60) + (h.getHH()*1000*60*60));
+	}
+	
+	public void setTMS(Time h,int TMS){// set the total of MS in the time
+		h.setHH(TMS/1000/60/60);;
+		TMS -= h.getHH()*1000*60*60;
+		h.setMM(TMS/1000/60);
+		TMS -= h.getMM()*1000*60;
+		h.setSS(TMS/1000);
+		TMS -= h.getSS()*1000;
+		h.setMS(TMS);
+	}
+	
 	
 	public String toString()
 	{
