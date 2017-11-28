@@ -34,24 +34,6 @@ public class Subtitles implements Subtitle{
 		Text = text;
 	}
 	
-	public int compare(Subtitles s){//compare the two subtitles by StartTime 
-		if((this.StartTime).compare(s.EndTime) > 0){
-			return 1; // bigger
-		}
-		else if((s.StartTime).compare(EndTime) < 0){
-			return 0;
-		}
-		else
-			return -1;
-	}
-	
-	//method shift
-	public void shift(int offset){
-		//System.out.println("shifting by " + offset + ", st = " + StartTime.getTMS() + ", et = " + EndTime.getTMS() + ", For :" + Text);
-		(StartTime).setTMS((StartTime).getTMS() + offset);
-		(EndTime).setTMS((EndTime).getTMS() + offset);
-	}
-	
 	public String toString()
 	{
 		String s = "StartTime: "+StartTime+", EndTime: "+EndTime+", Text: "+Text;

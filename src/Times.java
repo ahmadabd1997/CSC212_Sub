@@ -47,33 +47,6 @@ public class Times implements Time{
 		MS = ms;
 	}
 	
-	public int compare(Times t){ // return 0 when equal, -1 when smaller than parameter, 1 when bigger than parameter.
-		int OT = this.getTMS();
-		int PT = t.getTMS(); 
-		if(OT > PT){
-			return 1;
-		}
-		else if(OT < PT){
-			return -1;
-		}
-		else
-			return 0;
-	}
-	
-	public int getTMS(){// get the total of MS in the time
-		return (getMS() + (getSS()*1000) + (getMM()*1000*60) + (getHH()*1000*60*60));
-	}
-	
-	public void setTMS(int TMS){// set the total of MS in the time
-		HH = TMS/1000/60/60;
-		TMS -= HH*1000*60*60;
-		MM = TMS/1000/60;
-		TMS -= MM*1000*60;
-		SS = TMS/1000;
-		TMS -= SS*1000;
-		MS = TMS;
-	}
-	
 	public String toString()
 	{
 		String s = "Hourse(HH)= "+getHH()+", Minutes(MM)= "+getMM()+", Seconds(SS)= "+getSS()+", MilleSeconds(MS)= "+getMS();
