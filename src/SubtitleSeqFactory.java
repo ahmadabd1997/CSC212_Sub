@@ -75,7 +75,7 @@ public class SubtitleSeqFactory {
 			counter = counter %4;
 		}
 		//Extra step for last element.
-		Subtitles s = new Subtitles();
+		Subtitle s = new Subtitles();
 		s.setStartTime(ts);
 		s.setEndTime(te);
 		s.setText(text);
