@@ -1,4 +1,3 @@
-// (maybe not complete) not sure if the list need more methods or need edit!
 
 public interface List<T> {
 	

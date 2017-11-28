@@ -4,23 +4,23 @@ import java.io.*;
 public class SubtitleSeqFactory {
 
 	// Return an empty subtitles sequence 
-	public static SubtitleSeq getSubtitleSeq() {
-		SubtitleSeq s = new SubtitleSeq();
+	public static SubtitleSeqs getSubtitleSeq() {
+		SubtitleSeqs s = new SubtitleSeqs();
 		return s;
 	}
 
 	// Load a subtitle sequence from an SRT file. If the file does not exist or
 	// is corrupted (incorrect format), null is returned.
-	public static SubtitleSeq loadSubtitleSeq(String fileName) {
+	public static SubtitleSeqs loadSubtitleSeq(String fileName) {
 		try {
 		BufferedReader in = new BufferedReader(new FileReader(fileName));
-		SubtitleSeq ss = new SubtitleSeq();
+		SubtitleSeqs ss = new SubtitleSeqs();
 		String line;
 		int counter =0; 		//using counter to count the lines we read in a single sequence
 		int seqNumber=0;
 		int subNumber=0;	 	//test usage
-		Time ts = new Time(); 	//starting time
-		Time te = new Time(); 	//ending time
+		Times ts = new Times(); 	//starting time
+		Times te = new Times(); 	//ending time
 		String text="";		 	//add subtitle text to it
 		while((line = in.readLine()) != null)
 		{
@@ -35,13 +35,13 @@ public class SubtitleSeqFactory {
 			else if(counter ==1)
 			{
 				//setting starting time.
-				ts = new Time();
+				ts = new Times();
 				ts.setHH(Integer.parseInt(line.substring(0, 2)));
 				ts.setMM(Integer.parseInt(line.substring(3, 5)));
 				ts.setSS(Integer.parseInt(line.substring(6, 8)));
 				ts.setMS(Integer.parseInt(line.substring(9, 12)));
 				//setting ending time.
-				te = new Time();
+				te = new Times();
 				te.setHH(Integer.parseInt(line.substring(17, 19)));
 				te.setMM(Integer.parseInt(line.substring(20, 22)));
 				te.setSS(Integer.parseInt(line.substring(23, 25)));
@@ -62,7 +62,7 @@ public class SubtitleSeqFactory {
 					continue;	
 				}
 				// after reading 1 subtitle add its info.
-				Subtitle s = new Subtitle();
+				Subtitles s = new Subtitles();
 				if(ts.compare(te)!=-1)
 					return null;
 				s.setStartTime(ts);
@@ -75,7 +75,7 @@ public class SubtitleSeqFactory {
 			counter = counter %4;
 		}
 		//Extra step for last element.
-		Subtitle s = new Subtitle();
+		Subtitles s = new Subtitles();
 		s.setStartTime(ts);
 		s.setEndTime(te);
 		s.setText(text);

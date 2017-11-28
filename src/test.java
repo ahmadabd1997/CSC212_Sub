@@ -3,7 +3,7 @@ public class test {
 
 	public static void main(String[] args) {
 		
-		SubtitleSeqFactoryStudentTest ss = new SubtitleSeqFactoryStudentTest();
+		/*SubtitleSeqFactoryStudentTest ss = new SubtitleSeqFactoryStudentTest();
 		ss.testAddSubtitle1();
 		ss.testAddSubtitle2();
 		ss.testAddSubtitle3();
@@ -28,7 +28,7 @@ public class test {
 		ss.testReplace1();
 		ss.testReplace2();
 		ss.testShift1();
-		ss.testShift2();
+		ss.testShift2();*/
 	/*	SubtitleSeq s = new SubtitleSeq();
 		s= SubtitleSeqFactory.loadSubtitleSeq("winnie-the-pooh-2011.srt");
 		s.getSubtitles().findFirst();
