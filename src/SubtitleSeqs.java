@@ -10,34 +10,34 @@ public class SubtitleSeqs implements SubtitleSeq{
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				if(((Subtitles)list.retrieve()).compare((Subtitles)st) < 0) {
+				if((list.retrieve()).compare(st) < 0) {
 					list.findNext();
 					}
-				else if(((Subtitles)list.retrieve()).compare((Subtitles)st) == 0){
+				else if((list.retrieve()).compare(st) == 0){
 					return;
 				}
 				else{
-					list.insertbefore((Subtitles)st);
+					list.insertbefore(st);
 					added = true;
 					break;
 				}
 			}
 			if(!added){
-				if(((Subtitles)list.retrieve()).compare((Subtitles)st) < 0) {
+				if((list.retrieve()).compare(st) < 0) {
 					added = true;
 					list.insert(st);
 				}
-				else if(((Subtitles)list.retrieve()).compare((Subtitles)st) == 0){
+				else if((list.retrieve()).compare(st) == 0){
 					return;
 				}
 				else{
 					added = true;
-					list.insertbefore((Subtitles)st);
+					list.insertbefore(st);
 				}
 			}
 		}
 		else {
-			list.insert((Subtitles)st);
+			list.insert(st);
 		}
 }
 	// Return all subtitles in their chronological order.
@@ -51,19 +51,19 @@ public class SubtitleSeqs implements SubtitleSeq{
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				Time startTime = ((Subtitles)list.retrieve()).getStartTime();
-				Time endTime = ((Subtitles)list.retrieve()).getEndTime();
+				Time startTime = (list.retrieve()).getStartTime();
+				Time endTime = (list.retrieve()).getEndTime();
 				// check if the given time less than current_end_time and greater than current_start_time
-				if(((Times)startTime).compare((Times)time) <= 0 && ((Times)endTime).compare((Times)time) >= 0){
+				if((startTime).compare(time) <= 0 && (endTime).compare(time) >= 0){
 					return list.retrieve();
 				}
 				list.findNext();
 			} 
 			// check for the last element in the list ^.^
-			Time startTime = ((Subtitles)list.retrieve()).getStartTime();
-			Time endTime = ((Subtitles)list.retrieve()).getEndTime();
+			Time startTime = (list.retrieve()).getStartTime();
+			Time endTime = (list.retrieve()).getEndTime();
 			// check if the given time less than current_end_time and greater than current_start_time
-			if(((Times)startTime).compare((Times)time) <= 0 && ((Times)endTime).compare((Times)time) >= 0){
+			if((startTime).compare(time) <= 0 && (endTime).compare(time) >= 0){
 				return list.retrieve();
 			}
 		}
@@ -81,8 +81,8 @@ public class SubtitleSeqs implements SubtitleSeq{
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				if(((Times)list.retrieve().getEndTime()).compare((Times)startTime) >= 0){ // inside the interval
-					while(((Times)list.retrieve().getStartTime()).compare((Times)endTime) <= 0){
+				if((list.retrieve().getEndTime()).compare(startTime) >= 0){ // inside the interval
+					while((list.retrieve().getStartTime()).compare(endTime) <= 0){
 						
 						tmplist.insert(list.retrieve());
 						if(!list.last())
@@ -155,16 +155,16 @@ public class SubtitleSeqs implements SubtitleSeq{
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				((Subtitles)list.retrieve()).shift(offset);// call the shift method in subtitle class
-				if(((Times)list.retrieve().getStartTime()).getTMS()< 0)
+				(list.retrieve()).shift(offset);// call the shift method in subtitle class
+				if((list.retrieve().getStartTime()).getTMS()< 0)
 					list.retrieve().setStartTime(new Times());
-				if(((Times)list.retrieve().getEndTime()).getTMS() <= 0) // check if we need to remove the subtitle
+				if((list.retrieve().getEndTime()).getTMS() <= 0) // check if we need to remove the subtitle
 					list.remove();
 				else
 					list.findNext();
 			}
-			((Subtitles)list.retrieve()).shift(offset); // call the shift method in subtitle class
-			if(((Times)list.retrieve().getEndTime()).getTMS() <= 0) // check if we need to remove the subtitle
+			(list.retrieve()).shift(offset); // call the shift method in subtitle class
+			if((list.retrieve().getEndTime()).getTMS() <= 0) // check if we need to remove the subtitle
 				list.remove();
 		}
 	}
@@ -176,15 +176,15 @@ public class SubtitleSeqs implements SubtitleSeq{
 	// comes immediately before endTime. The start and end times of all
 	// subtitles must be adjusted to reflect the new time.
 	public void cut(Time startTime, Time endTime) {
-		int TMS = ((Times)endTime).getTMS() - ((Times)startTime).getTMS();
+		int TMS = (endTime).getTMS() - (startTime).getTMS();
 		
 		if(!list.empty()){
 			boolean need_shift = true;
 			list.findFirst();
 			while(!list.last()){
 				//System.out.println("end.compare(start) = " + list.retrieve().getEndTime().compare(startTime));
-				if(((Times)list.retrieve().getEndTime()).compare((Times)startTime) >= 0){// inside the interval
-					while(((Times)list.retrieve().getStartTime()).compare((Times)endTime) <= 0){
+				if((list.retrieve().getEndTime()).compare(startTime) >= 0){// inside the interval
+					while((list.retrieve().getStartTime()).compare(endTime) <= 0){
 						
 						if(list.last()){// if the endTime is bigger than the last subtitle
 							list.remove();
@@ -202,10 +202,10 @@ public class SubtitleSeqs implements SubtitleSeq{
 			}
 			if(need_shift){
 				while(!list.last()){
-					((Subtitles)list.retrieve()).shift(-TMS-1);
+					(list.retrieve()).shift(-TMS-1);
 					list.findNext();
 				}
-				((Subtitles)list.retrieve()).shift(-TMS-1);
+				(list.retrieve()).shift(-TMS-1);
 			}
 			
 		}

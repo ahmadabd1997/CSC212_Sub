@@ -35,10 +35,10 @@ public class Subtitles implements Subtitle{
 	}
 	
 	public int compare(Subtitles s){//compare the two subtitles by StartTime 
-		if(((Times)this.StartTime).compare((Times)s.EndTime) > 0){
+		if((this.StartTime).compare(s.EndTime) > 0){
 			return 1; // bigger
 		}
-		else if(((Times)s.StartTime).compare((Times)EndTime) < 0){
+		else if((s.StartTime).compare(EndTime) < 0){
 			return 0;
 		}
 		else
@@ -48,8 +48,8 @@ public class Subtitles implements Subtitle{
 	//method shift
 	public void shift(int offset){
 		//System.out.println("shifting by " + offset + ", st = " + StartTime.getTMS() + ", et = " + EndTime.getTMS() + ", For :" + Text);
-		((Times)StartTime).setTMS(((Times)StartTime).getTMS() + offset);
-		((Times)EndTime).setTMS(((Times)EndTime).getTMS() + offset);
+		(StartTime).setTMS((StartTime).getTMS() + offset);
+		(EndTime).setTMS((EndTime).getTMS() + offset);
 	}
 	
 	public String toString()
