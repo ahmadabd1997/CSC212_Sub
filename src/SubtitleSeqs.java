@@ -123,18 +123,15 @@ public class SubtitleSeqs implements SubtitleSeq{
 			list.findFirst();
 			while(!list.last()){
 				if(compare((list.retrieve().getEndTime()),startTime) >= 0){ // inside the interval
-					while(compare((list.retrieve().getStartTime()),endTime) <= 0){
-						
-						tmplist.insert(list.retrieve());
-						if(!list.last())
-							list.findNext();
-						else
-							break;
+					if(compare((list.retrieve().getStartTime()),endTime) <= 0){
+						tmplist.insert(list.retrieve());	
 					}
-					break;
 				}
-				else{ // not inside the interval
-					list.findNext();
+				list.findNext();
+			}
+			if(compare((list.retrieve().getEndTime()),startTime) >= 0){ // inside the interval
+				if(compare((list.retrieve().getStartTime()),endTime) <= 0){
+					tmplist.insert(list.retrieve());	
 				}
 			}
 		}
@@ -232,25 +229,26 @@ public class SubtitleSeqs implements SubtitleSeq{
 		
 		if(!list.empty()){
 			boolean need_shift = true;
+			boolean removed = false;
 			list.findFirst();
 			while(!list.last()){
 				//System.out.println("end.compare(start) = " + list.retrieve().getEndTime().compare(startTime));
-				if(compare((list.retrieve().getEndTime()),startTime) >= 0){// inside the interval
-					while(compare((list.retrieve().getStartTime()),endTime) <= 0){
-
-						
-						if(list.last()){// if the endTime is bigger than the last subtitle
+				if(compare(list.retrieve().getEndTime(),startTime) > 0)
+					removed = true;
+				if(compare((list.retrieve().getEndTime()),startTime) >= 0 && compare((list.retrieve().getStartTime()),endTime) <= 0 ){
 							list.remove();
-							need_shift = false;
-							break;
-						}
-						else
-							list.remove();
+							removed = true;
 					}
-					break;
-				}
-				else{ // not inside the interval
+				else {
+					if(removed)
+						break;
 					list.findNext();
+				}
+			}
+			if(compare((list.retrieve().getEndTime()),startTime) >= 0){// inside the interval
+				if(compare((list.retrieve().getStartTime()),endTime) <= 0 ){
+						list.remove();
+						need_shift=false;
 				}
 			}
 			if(need_shift){
@@ -272,11 +270,11 @@ public class SubtitleSeqs implements SubtitleSeq{
 		if(!list.empty()){
 			list.findFirst();
 			while(!list.last()){
-				s+="\n" +list.retrieve().toString();
+				s+="\n" +list.retrieve().getEndTime().getMM()+" "+list.retrieve().getEndTime().getSS()+" "+list.retrieve().getEndTime().getMS() + "/ "+list.retrieve().getText();
 				list.findNext();
 				
 			}
-			s+="\n" +list.retrieve().toString();
+			s+="\n" +list.retrieve().getEndTime().getMM()+" "+list.retrieve().getEndTime().getSS()+" "+list.retrieve().getEndTime().getMS() + "/ "+list.retrieve().getText();
 		}
 		return s;
 	}

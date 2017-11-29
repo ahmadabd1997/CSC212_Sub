@@ -33,6 +33,12 @@ public class Subtitles implements Subtitle{
 	public void setText(String text) {
 		Text = text;
 	}
+	
+	public String toString()
+	{
+		String s = ""+(Times)StartTime+"/"+(Times)EndTime+"/"+getText();
+		return s;
+	}
 
 
 	

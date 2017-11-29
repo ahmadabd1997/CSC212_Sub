@@ -822,7 +822,7 @@ public class SubtitleSeqFactoryStudentTest {
 			expected.insert(new SubtitleSt(new TimeSt("00", "45", "55", "255"), new TimeSt("00", "45", "57", "549"), "[Christopher] Wait, everyone."));
 			expected.insert(new SubtitleSt(new TimeSt("00", "45", "57", "675"), new TimeSt("00", "45", "59", "635"), "It's only me."));
 			expected.insert(new SubtitleSt(new TimeSt("00", "45", "59", "719"), new TimeSt("00", "46", "02", "013"), "[all] Christopher Robin!"));
-
+			System.out.println(""+((SubtitleSeqs)seq).toString());
 			assertTrue("Method cut not working correctly", areEqual(expected, seq.getSubtitles()));
 
 		} catch (Exception e) {
