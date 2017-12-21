@@ -253,7 +253,7 @@ public class SortedBST<K extends Comparable<K>, T> implements SortedMap<K, T> {
 		current = tail;
 	}
 
-	@Override
+	/*@Override
 	public List<Pair<K, T>> inRange(K k1, K k2) {
 		LinkedListWC<Pair<K, T>> res = new LinkedListWC<Pair<K, T>>();
 		if (k1.compareTo(k2) <= 0) {
@@ -279,6 +279,7 @@ public class SortedBST<K extends Comparable<K>, T> implements SortedMap<K, T> {
 			inRange(k1, k2, t.right, res);
 		}
 	}
+	*/
 
 	@Override
 	public void remove() {
@@ -292,5 +293,11 @@ public class SortedBST<K extends Comparable<K>, T> implements SortedMap<K, T> {
 			remove(current.key);
 			current = newCurrent;
 		}
+	}
+
+	@Override
+	public List<Pair<K, T>> inRange(K k1, K k2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
