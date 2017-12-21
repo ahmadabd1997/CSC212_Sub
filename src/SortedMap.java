@@ -246,12 +246,126 @@ public class SortedMap<K extends Comparable<K>, T> {
 	// Remove the element with key k if it exists and return true. If the element
 	// does not exist false is returned (the position of current is unspecified
 	// after calling this method). This method must be O(log(n)) in average.
-	boolean remove(K key);
+	boolean remove(K key){
+		if(root != null){
+			SBSTNode<K,T> P = current = root;
+			while(key.compareTo(current.key) != 0){
+				if(key.compareTo(current.key) > 0){
+					if(current.right != null){
+						P=current;
+						current = current.right;
+					}
+					else
+						break;
+				}		
+				else {
+					if(current.left != null){
+						P=current;
+						current = current.left;
+					}
+					else
+						break;
+					
+				}
+			}
+			if(key.compareTo(current.key) == 0){
+				
+				if(current.right != null){
+					K tmpKey = current.next.key;
+					T tmpData = current.next.data;
+					remove(tmpKey);
+					current.key = tmpKey;
+					current.data = tmpData;
+					
+					
+				}
+				else if(current.left != null){
+					K tmpKey = current.previous.key;
+					T tmpData = current.previous.data;
+					remove(tmpKey);
+					current.key = tmpKey;
+					current.data = tmpData;
+				}
+				else{
+					if(P != current){
+						if(P.left == current){
+							P.left = null;
+							
+						}
+						else if(P.right == current){
+							P.right = null;
+						}
+						if(current.previous != null)
+							current.previous.next = current.next;
+						else
+							head = current.next;
+						if(current.next != null)
+							current.next.previous = current.previous;
+						else
+							tail = current.previous;
+					}else{
+						current = root = head = tail = null;
+					}
+					current = root;
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+		return false;
+	}
 
 	// Remove the current element. The next element if it exists is made current,
 	// otherwise current moves to the first element. This method must be O(log(n))
 	// in average.
-	void remove();
+	void remove(){
+		if(root != null){
+			SBSTNode<K,T> P = root;
+			if(P != current){
+				while(P.key.compareTo(current.key) != 0){
+					if(P.key.compareTo(current.key) < 0){
+						if(P.right != current && P.right != null){
+							P=P.right;
+						}
+						else
+							break;
+					}		
+					else {
+						if(P.left != current && P.left != null){
+							P=P.left;
+						}
+						else
+							break;
+						
+					}
+				}
+				
+				if(P.right == current){
+					P.right = null;
+				}
+				else if(P.left == current){
+					P.left = null;
+				}
+				
+				if(current.previous != null)
+					current.previous.next = current.next;
+				else
+					head = current.next;
+				
+				if(current.next != null)
+					current.next.previous = current.previous;
+				else
+					tail = current.previous;
+			}
+			else{
+				if(current.right != null){
+					
+				}
+			}
+		}
+	}
 
 	// Return in a list all elements with key k satisfying: k1 <= k <= k2.
 	List<Pair<K, T>> inRange(K k1, K k2);
